@@ -1,17 +1,12 @@
 import React from 'react'
 import {parseText} from "./format";
-import {Field, FieldComponent, Form} from "@form-composer/core";
-import {FieldRenderProps} from "react-final-form";
+import {FieldComponent} from "@form-composer/core";
 import {Input} from "antd";
-import {BaseField} from "./BaseField";
+import {BaseField, BaseFieldProps} from "./BaseField";
 
-interface LongTextFieldProps extends FieldRenderProps<any, HTMLElement> {
-    field: Field
-    form: Form
-}
 
-const LongTextField = ({form, field, input, meta}: LongTextFieldProps) => (
-    <BaseField field={field} form={form} input={input} meta={meta}>
+const LongTextField = ({input, ...rest}: BaseFieldProps) => (
+    <BaseField input={input} {...rest}>
         <Input.TextArea {...input} rows={4}/>
     </BaseField>
 )

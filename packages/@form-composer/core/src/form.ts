@@ -4,6 +4,7 @@ import {AnyField, Field} from './field'
 
 export interface FormOptions<S, F extends Field = AnyField> extends Config<S> {
     fields: F[]
+
     reset?(): void
 
     onChange?(values: FormState<S>): void
@@ -212,7 +213,7 @@ function updateSelectively<S>(form: FormApi<any>, values: S, prefix?: string) {
 
 export function createForm(options: FormOptions<any>, onChange?: any): Form {
     const form = new Form(options)
-    if(onChange) {
+    if (onChange) {
         form.subscribe((form) => {
             onChange(form.values)
         }, {values: true})

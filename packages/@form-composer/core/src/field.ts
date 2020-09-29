@@ -20,54 +20,6 @@ export interface Field<F extends Field = AnyField> {
     ): string | undefined
 }
 
-export type Choice = {
-    value: string
-    label: string
-}
-
-export interface ChoiceField extends Field {
-    component: 'choice',
-    choices: Choice[]
-}
-
-export interface ObjectField extends Field {
-    component: 'object'
-    fields: Field[]
-}
-
-export type DefaultItem = any | (() => any)
-
-export interface ArrayField extends Field {
-    component: 'array',
-    child: ObjectField | Field,
-    defaultItem: DefaultItem,
-    /**
-     * Explicit declare the child is composite or primary field.
-     * If child is composite, it will be rendered by Collapse
-     */
-    isComposite?: boolean,
-    emptyPlaceHolder?: string,
-    /**
-     * An optional function which generates `props` for
-     * this items's `li`.
-     */
-    itemProps?: (
-        item: object,
-        index: number,
-    ) => {
-        /**
-         * The `key` property used to optimize the rendering of lists.
-         *
-         * If rendering is causing problems, use `defaultItem` to
-         * generate a unique key for the item.
-         *
-         * Reference:
-         * * https://reactjs.org/docs/lists-and-keys.html
-         */
-        key?: string
-    },
-}
-
 export interface FieldComponent {
     name: string
     Component: React.FC<any>

@@ -7,9 +7,10 @@ import {Field as FinalField} from "react-final-form";
 export interface FieldBuilderProps {
     form: Form,
     fields: Field[]
+    itemLayout: object
 }
 
-export const FieldsBuilder = ({form, fields}: FieldBuilderProps) => {
+export const FieldsBuilder = ({form, fields, ...fieldsBuilderProps}: FieldBuilderProps) => {
     const formComposer = useFormComposer();
     return (
         <>
@@ -60,13 +61,14 @@ export const FieldsBuilder = ({form, fields}: FieldBuilderProps) => {
                             touched: true
                         }}
                     >
-                        {fieldProps => {
+                        {fieldRenderProps => {
                             if (fieldType) {
                                 return (
                                     <fieldType.Component
-                                        {...fieldProps}
                                         form={form}
                                         field={field}
+                                        {...fieldsBuilderProps}
+                                        {...fieldRenderProps}
                                     />
                                 )
                             }

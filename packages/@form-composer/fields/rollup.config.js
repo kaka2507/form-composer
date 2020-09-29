@@ -7,7 +7,7 @@ export default {
         dir: "dist",
         sourcemap: true,
     },
-    external: [ 'react', "react-dom", "react-final-form", "@form-composer/core", 'antd', '@ant-design/icons', 'antd/dist/antd.css'],
+    external: ['react', "react-dom", "react-final-form", "@form-composer/core", 'antd', '@ant-design/icons', 'antd/dist/antd.css'],
     plugins: [
         tsPlugin()
     ]

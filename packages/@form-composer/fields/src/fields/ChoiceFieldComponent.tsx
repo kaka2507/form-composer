@@ -1,25 +1,24 @@
 import {parseText} from "./format";
 import {Field, FieldComponent, Form} from "@form-composer/core";
-import {FieldRenderProps} from "react-final-form";
 import {Select} from "antd";
 import React from "react";
-import {BaseField} from "./BaseField";
+import {BaseField, BaseFieldProps} from "./BaseField";
 
 type Choice = {
     value: string
     label: string
 }
 
-interface ChoiceFieldProps extends FieldRenderProps<any, HTMLElement> {
+interface ChoiceFieldProps extends BaseFieldProps {
     field: Field & { choices: (Choice | string)[] }
     form: Form
 }
 
-const { Option } = Select;
+const {Option} = Select;
 
-const ChoiceField = ({form, field, input, meta}: ChoiceFieldProps) => {
+const ChoiceField = ({field, input, ...rest}: ChoiceFieldProps) => {
     return (
-        <BaseField field={field} form={form} input={input} meta={meta}>
+        <BaseField field={field} input={input} {...rest}>
             <Select style={{width: '100%'}} {...input}>
                 {field.choices ? (
                     field.choices.map(toProps).map(toComponent)

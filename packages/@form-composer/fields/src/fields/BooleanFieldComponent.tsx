@@ -1,17 +1,10 @@
-import {Field, FieldComponent, Form} from "@form-composer/core";
-import {FieldRenderProps} from "react-final-form";
-import {Form as AntForm, Switch} from "antd";
-import {formItemLayout} from "./layout";
+import {FieldComponent} from "@form-composer/core";
+import {Switch} from "antd";
 import React from "react";
+import {BaseField, BaseFieldProps} from "./BaseField";
 import {CheckOutlined, CloseOutlined} from '@ant-design/icons';
 
-
-interface CheckBoxFieldProps extends FieldRenderProps<any, HTMLElement> {
-    field: Field
-    form: Form
-}
-
-const CheckBoxField = ({field, input}: CheckBoxFieldProps) => {
+const CheckBoxField = ({field, input, ...rest}: BaseFieldProps) => {
     const checked = !!(input.value || input.checked)
 
     const onChange = (checked) => {
@@ -20,15 +13,14 @@ const CheckBoxField = ({field, input}: CheckBoxFieldProps) => {
 
     return (
         <>
-            <AntForm.Item  {...formItemLayout} name={field.name} label={field.label} help={field.description}
-                           validateStatus="validating">
+            <BaseField field={field} input={input} {...rest}>
                 <Switch
-                    checkedChildren={<CheckOutlined />}
-                    unCheckedChildren={<CloseOutlined />}
+                    checkedChildren={<CheckOutlined/>}
+                    unCheckedChildren={<CloseOutlined/>}
                     checked={checked}
                     onChange={onChange}
                 />
-            </AntForm.Item>
+            </BaseField>
         </>
     )
 }

@@ -2,19 +2,18 @@ import React from "react";
 import {Input} from 'antd';
 import {parseText} from "./format";
 import {Field, FieldComponent, Form} from "@form-composer/core";
-import {FieldRenderProps} from "react-final-form";
-import {BaseField} from "./BaseField";
+import {BaseField, BaseFieldProps} from "./BaseField";
 
 
-interface TextFieldProps extends FieldRenderProps<any, HTMLElement> {
+interface TextFieldProps extends BaseFieldProps {
     field: Field & { placeholder: string }
     form: Form
 }
 
-const TextField = ({form, field, input, meta}: TextFieldProps) => {
+const TextField = ({field, input, ...rest}: TextFieldProps) => {
     return (
-        <BaseField field={field} form={form} input={input} meta={meta}>
-            <Input {...input} placeholder={field.placeholder}/>
+        <BaseField field={field} input={input} {...rest}>
+            <Input size="large" {...input} placeholder={field.placeholder}/>
         </BaseField>
     )
 }
