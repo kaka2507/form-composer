@@ -32,7 +32,7 @@ const TagsField = ({form, field, input, ...rest}: TagsFieldProps) => {
     const help = (
         <span style={{display: 'flex', flexWrap: 'wrap', margin: '4px 0'}}>
             {items && items.map((tag: string, index: number) => (
-                <Tag key={tag} closable onClose={() => removeTag(index)}>tag</Tag>
+                <Tag key={tag} closable onClose={() => removeTag(index)}>{tag}</Tag>
             ))}
             {!items && items.map((tag: string, index: number) => (
                 <span>{field.description}</span>

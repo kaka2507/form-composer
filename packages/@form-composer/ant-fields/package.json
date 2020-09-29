@@ -1,7 +1,7 @@
 {
-  "name": "@form-composer/fields",
+  "name": "@form-composer/ant-fields",
   "version": "0.0.1",
-  "description": "React form composer fields library",
+  "description": "Form's Composer fields which is built by Ant Design",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "files": [
@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/vcoder4c/form-composer.git",
-    "directory": "packages/@form-composer/fields"
+    "directory": "packages/@form-composer/ant-fields"
   },
   "author": "Bao Doan N. <doanngocbao@gmail.com> (https://github.com/vcoder4c)",
   "license": "MIT",

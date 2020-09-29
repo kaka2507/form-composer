@@ -1,6 +1,6 @@
 import React from 'react';
 import {createForm} from "@form-composer/core";
-import {FormBuilder} from "@form-composer/fields";
+import {FormBuilder} from "@form-composer/ant-fields";
 
 
 function App() {

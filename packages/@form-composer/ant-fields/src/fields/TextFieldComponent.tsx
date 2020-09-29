@@ -13,7 +13,7 @@ interface TextFieldProps extends BaseFieldProps {
 const TextField = ({field, input, ...rest}: TextFieldProps) => {
     return (
         <BaseField field={field} input={input} {...rest}>
-            <Input size="large" {...input} placeholder={field.placeholder}/>
+            <Input size="large" {...input} onChange={(v) => input.onChange(v.target.value)} placeholder={field.placeholder}/>
         </BaseField>
     )
 }

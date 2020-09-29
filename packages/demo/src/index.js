@@ -9,7 +9,7 @@ import {
     NumberFieldComponent,
     TagsFieldComponent,
     TextFieldComponent
-} from "@form-composer/fields";
+} from "@form-composer/ant-fields";
 
 const formComposer = new FormComposer({
     fieldTypes: [

@@ -7,17 +7,17 @@
   ],
   "scripts": {
     "build-core": "yarn workspace @form-composer/core build",
-    "build-fields": "yarn workspace @form-composer/fields build",
+    "build-ant-fields": "yarn workspace @form-composer/ant-fields build",
 
     "watch-core": "yarn workspace @form-composer/core watch",
-    "watch-fields": "yarn workspace @form-composer/fields watch",
+    "watch-ant-fields": "yarn workspace @form-composer/ant-fields watch",
 
     "clean-core": "yarn workspace @form-composer/core clean",
-    "clean-fields": "yarn workspace @form-composer/fields clean",
+    "clean-ant-fields": "yarn workspace @form-composer/ant-fields clean",
     "clean-demo": "yarn workspace demo clean",
 
-    "build": "yarn build-core && yarn build-fields",
-    "clean": "rm -rf node_modules && yarn clean-core && yarn clean-fields && yarn clean-demo",
+    "build": "yarn build-core && yarn build-ant-fields",
+    "clean": "rm -rf node_modules && yarn clean-core && yarn clean-ant-fields && yarn clean-demo",
     "start-demo": "yarn workspace demo start"
   }
 }
