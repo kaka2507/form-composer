@@ -1,8 +1,10 @@
 import React from 'react'
 import {parseText} from "./format";
 import {Field, FieldComponent, Form} from "@form-composer/core";
-import {Input, Tag} from 'antd';
+import {Input, Tag, Typography} from 'antd';
 import {BaseField, BaseFieldProps} from "./BaseField";
+
+const {Text} = Typography;
 
 interface TagsFieldProps extends BaseFieldProps {
     field: Field & { placeholder: string }
@@ -28,22 +30,32 @@ const TagsField = ({form, field, input, ...rest}: TagsFieldProps) => {
         form.mutators.remove(field.name, index)
     }, [form, field])
     const items = input.value || []
-
     const help = (
-        <span style={{display: 'flex', flexWrap: 'wrap', margin: '4px 0'}}>
-            {items && items.map((tag: string, index: number) => (
-                <Tag key={tag} closable onClose={() => removeTag(index)}>{tag}</Tag>
-            ))}
-            {!items && items.map((tag: string, index: number) => (
-                <span>{field.description}</span>
-            ))}
-        </span>
+        <div>
+            <div>
+                <div>
+                    <Text type="secondary">{field.description}</Text>
+                </div>
+                <div>
+                     <span style={{display: 'flex', flexWrap: 'wrap', margin: '4px 0'}}>
+                        {items && items.map((tag: string, index: number) => (
+                            <Tag key={tag} closable onClose={() => removeTag(index)}>{tag}</Tag>
+                        ))}
+                         {!items && (
+                             <span>{field.description}</span>
+                         )}
+                    </span>
+                </div>
+            </div>
+        </div>
     )
     return (
         <BaseField field={field} form={form} input={input} help={help} {...rest}>
             <Input
+                key={field.name}
                 name={field.name}
                 value={value}
+                onFocus={() => form.finalForm.mutators.setFieldTouched(field.name, true)}
                 onChange={event => setValue(event.target.value)}
                 placeholder={field.placeholder}
                 onKeyPress={event => {

@@ -15,13 +15,13 @@ export const BaseField = ({field, meta, help, itemLayout, children}: BaseFieldPr
     return (
         <>
             {hasError && (
-                <AntForm.Item {...itemLayout} hasFeedback label={field.label} help={meta.error}
+                <AntForm.Item key={field.name} {...itemLayout} hasFeedback label={field.label} help={meta.error}
                               validateStatus="error">
                     {children}
                 </AntForm.Item>
             )}
             {!hasError && (
-                <AntForm.Item {...itemLayout} label={field.label} help={help ? help : field.description}
+                <AntForm.Item key={field.name} {...itemLayout} label={field.label} help={help ? help : field.description}
                               validateStatus="validating">
                     {children}
                 </AntForm.Item>

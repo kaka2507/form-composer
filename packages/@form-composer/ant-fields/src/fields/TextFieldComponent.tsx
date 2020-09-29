@@ -1,6 +1,6 @@
 import React from "react";
 import {Input} from 'antd';
-import {parseText} from "./format";
+import {mapInputProps, parseText} from "./format";
 import {Field, FieldComponent, Form} from "@form-composer/core";
 import {BaseField, BaseFieldProps} from "./BaseField";
 
@@ -11,9 +11,10 @@ interface TextFieldProps extends BaseFieldProps {
 }
 
 const TextField = ({field, input, ...rest}: TextFieldProps) => {
+    const inputProps = mapInputProps(input)
     return (
         <BaseField field={field} input={input} {...rest}>
-            <Input size="large" {...input} onChange={(v) => input.onChange(v.target.value)} placeholder={field.placeholder}/>
+            <Input key={field.name} size="large" {...inputProps} onChange={(v) => input.onChange(v.target.value)} placeholder={field.placeholder}/>
         </BaseField>
     )
 }

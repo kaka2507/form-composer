@@ -1,5 +1,6 @@
 import arrayMutators from 'final-form-arrays'
 import {Config, createForm as finalCreateForm, FormApi, FormState} from 'final-form'
+import setFieldTouched from 'final-form-set-field-touched'
 import {AnyField, Field} from './field'
 
 export interface FormOptions<S, F extends Field = AnyField> extends Config<S> {
@@ -25,6 +26,8 @@ export class Form<S = any, F extends Field = AnyField> {
         const initialValues = options.initialValues || ({} as S)
         this.fields = fields
         this.onSubmit = options.onSubmit
+
+        // @ts-ignore
         this.finalForm = finalCreateForm<S>({
             ...options,
             initialValues,
@@ -32,6 +35,8 @@ export class Form<S = any, F extends Field = AnyField> {
             mutators: {
                 ...arrayMutators,
                 ...options.mutators,
+                // @ts-ignore
+                setFieldTouched,
             },
         })
 

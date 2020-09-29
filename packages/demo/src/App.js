@@ -9,87 +9,56 @@ function App() {
             name: 'name',
             label: 'Name',
             component: 'text',
-            description: 'This is a name',
-            placeholder: 'Your name',
+            description: 'Your full name',
+            placeholder: 'Your full name',
             validate: (value) => {
                 if (!value) return "Required"
             }
         },
-        // {name: 'avatar', label: 'Avatar', component: 'image'},
-        // {
-        //   name: 'background', label: 'Background', component: 'color', widget: 'block',
-        //   colors: [
-        //     'red',
-        //     'black',
-        //     'green'
-        //   ]
-        // },
         {
-            name: 'age', label: 'Age',
+            name: 'age',
+            label: 'Age',
             component: 'number',
-            description: 'This is a name',
+            description: 'Your age',
+            placeholder: 'Your age',
             validate: (value) => {
                 if (!value) return "Required"
             }
         },
         {
-            name: 'enabled', label: 'Enabled', component: 'boolean', defaultValue: false,
-            description: 'This is a boolean',
-            validate: (value) => {
-                if (!value) return "Required"
-            }
+            name: 'enabled',
+            label: 'Enabled',
+            component: 'boolean',
+            defaultValue: true,
+            description: 'Enable',
         },
         {
             name: 'gender', label: 'Gender', component: 'choice',
             choices: ['Male', 'Female', 'Another'],
-            defaultValue: 'Male'
+            description: 'Your gender',
+            defaultValue: 'Female'
         },
-        {name: 'tags', label: 'Tags', component: 'tags'},
         {
-            name: 'description', label: 'Description', component: 'longtext',
+            name: 'tags',
+            label: 'Tags',
+            description: 'Employee tags',
+            placeholder: 'Employee tags',
+            component: 'tags',
+            validate: (value) => {
+                console.log('validate tags value:', value, value? value.length: '')
+                if (!value) return "Required"
+                if (value.length === 0) return "Required"
+            }
+        },
+        {
+            name: 'description',
+            label: 'Description',
+            component: 'longtext',
             description: 'This is a description',
             validate: (value) => {
                 if (!value) return "Required"
             }
         },
-        // {
-        //   name: 'profile',
-        //   label: 'Profile',
-        //   component: 'object',
-        //   description: 'This is very long long long long long long long long long long long long long long long long long long long long description',
-        //   fields: [
-        //     {name: 'first_name', label: 'First Name', component: 'text'},
-        //     {name: 'last_name', label: 'Last Name', component: 'text'},
-        //   ],
-        // },
-        // {
-        //   name: 'experiences',
-        //   label: 'Experiences',
-        //   description: 'This is description',
-        //   component: 'array',
-        //   child: {
-        //     component: 'object',
-        //     fields: [
-        //       {name: 'company', label: 'Company', component: 'text'},
-        //       {name: 'logo', label: 'Logo', component: 'image'},
-        //     ]
-        //   },
-        //   emptyPlaceHolder: 'Empty',
-        //   itemProps: (item, index) => ({
-        //     label: 'Your wish'
-        //   }),
-        //   defaultItem: {
-        //     company: 'Your company'
-        //   }
-        // },
-        // {
-        //   name: 'hobbies',
-        //   label: 'Hobbies',
-        //   component: 'array',
-        //   child: {
-        //     component: 'image',
-        //   },
-        // }
     ]
     const initValues = {}
     const form = createForm({
