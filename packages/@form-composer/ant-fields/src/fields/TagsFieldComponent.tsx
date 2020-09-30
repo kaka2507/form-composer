@@ -55,7 +55,7 @@ const TagsField = ({form, field, input, ...rest}: TagsFieldProps) => {
                 key={field.name}
                 name={field.name}
                 value={value}
-                onFocus={() => form.finalForm.mutators.setFieldTouched(field.name, true)}
+                onFocus={() => form.mutators.setFieldTouched(field.name, true)}
                 onChange={event => setValue(event.target.value)}
                 placeholder={field.placeholder}
                 onKeyPress={event => {

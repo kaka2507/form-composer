@@ -18,10 +18,16 @@ const ObjectField = ({form, field, ...rest}: ObjectFieldProps) => {
             name: `${field.name}.${subField.name}`,
         }))
     }, [field.fields, field.name])
+    const onChange = React.useCallback(() => {
+        const state = form.finalForm.getFieldState(field.name)
+        if (!state.touched) {
+            form.mutators.setFieldTouched(field.name, true)
+        }
+    }, [form, field])
     return (
-        <BaseField field={field} form={form} {...rest}>
-            <Collapse accordion>
-                <Panel key={`panel-${field.name}`} header={field.label}>
+        <BaseField form={form} field={field} {...rest}>
+            <Collapse accordion onChange={onChange}>
+                <Panel key={field.name} header={field.label}>
                     <FieldsBuilder form={form} fields={fields} itemLayout={rest.itemLayout} />
                 </Panel>
             </Collapse>
