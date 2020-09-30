@@ -21,7 +21,7 @@ export const BaseField = ({field, meta, help, itemLayout, children}: BaseFieldPr
     return (
         <>
             {hasError && (
-                <AntForm.Item key={field.name} {...itemLayout} hasFeedback label={field.label} help={getError(meta.error)}
+                <AntForm.Item key={field.name} {...itemLayout} label={field.label} help={getError(meta.error)}
                               validateStatus="error">
                     {children}
                 </AntForm.Item>
