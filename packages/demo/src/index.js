@@ -8,7 +8,8 @@ import {
     LongTextFieldComponent,
     NumberFieldComponent,
     TagsFieldComponent,
-    TextFieldComponent
+    TextFieldComponent,
+    ObjectFieldComponent,
 } from "@form-composer/ant-fields";
 
 const formComposer = new FormComposer({
@@ -19,6 +20,8 @@ const formComposer = new FormComposer({
         BooleanFieldComponent,
         TagsFieldComponent,
         ChoiceFieldComponent,
+
+        ObjectFieldComponent,
     ]
 })
 

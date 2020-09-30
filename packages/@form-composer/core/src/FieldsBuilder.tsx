@@ -36,8 +36,8 @@ export const FieldsBuilder = ({form, fields, ...fieldsBuilderProps}: FieldBuilde
                 }
                 return (
                     <FinalField
-                        name={field.name}
                         key={field.name}
+                        name={field.name}
                         type={type}
                         parse={
                             parse

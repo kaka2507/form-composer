@@ -45,7 +45,6 @@ function App() {
             placeholder: 'Employee tags',
             component: 'tags',
             validate: (value) => {
-                console.log('validate tags value:', value, value? value.length: '')
                 if (!value) return "Required"
                 if (value.length === 0) return "Required"
             }
@@ -55,6 +54,19 @@ function App() {
             label: 'Description',
             component: 'longtext',
             description: 'This is a description',
+            validate: (value) => {
+                if (!value) return "Required"
+            }
+        },
+        {
+            name: 'profile',
+            label: 'Profile',
+            component: 'object',
+            description: 'This is very long long long long long long long long long long long long long long long long long long long long description',
+            fields: [
+                {name: 'first_name', label: 'First Name', component: 'text'},
+                {name: 'last_name', label: 'Last Name', component: 'text'},
+            ],
             validate: (value) => {
                 if (!value) return "Required"
             }
