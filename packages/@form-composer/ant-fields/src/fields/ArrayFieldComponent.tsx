@@ -66,14 +66,6 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
         field.noLabel = true;
     }
 
-    const childLayout = {
-        labelCol: {
-            span: 24
-        },
-        wrapperCol: {
-            span: 24
-        },
-    };
     return (
         <BaseField form={form} field={field} input={input} {...rest}>
             <Collapse onChange={onChange}>
@@ -84,7 +76,7 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
                                 <Button icon={<MinusCircleOutlined/>} size="large" type="text" onClick={() => removeItem(index)} />
                             </Col>
                             <Col flex="auto">
-                                <FieldBuilder formComposer={formComposer} form={form} field={field} itemLayout={childLayout}/>
+                                <FieldBuilder formComposer={formComposer} form={form} field={field}/>
                             </Col>
                         </Row>
                     ))}
