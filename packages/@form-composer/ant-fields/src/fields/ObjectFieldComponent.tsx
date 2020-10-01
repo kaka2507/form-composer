@@ -8,7 +8,11 @@ import {InfoCircleOutlined} from '@ant-design/icons'
 const Panel = Collapse.Panel
 
 interface ObjectFieldProps extends BaseFieldProps {
-    field: Field & { fields: Field[], nested?: boolean }
+    field: Field & {
+        fields: Field[],
+        nested?: boolean,
+        noHelp?: boolean
+    }
     form: Form
 }
 
@@ -39,7 +43,7 @@ const ObjectField = ({form, field, ...rest}: ObjectFieldProps) => {
     };
 
     let header;
-    if (!field.nested) {
+    if (!field.nested || field.noHelp) {
         header = (
             <div style={{width: '100%', display: 'flex', justifyContent: 'flex-end'}}>
                 <Tooltip placement="top" title="Click to expand">
@@ -50,8 +54,14 @@ const ObjectField = ({form, field, ...rest}: ObjectFieldProps) => {
     } else {
         header = field.label
     }
+
+    // Force: object field will be no help (description or error) if it's nested
+    if (field.nested) {
+        field.noHelp = true
+    }
+
     return (
-        <BaseField form={form} field={field} {...rest} noLabel={field.nested}>
+        <BaseField form={form} field={field} {...rest}>
             <Collapse accordion onChange={onChange}>
                 <Panel key={field.name} header={header}>
                     <FieldsBuilder form={form} fields={fields} itemLayout={childLayout} />
