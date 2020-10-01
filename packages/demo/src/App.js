@@ -9,8 +9,8 @@ function App() {
             name: 'name',
             label: 'Name',
             component: 'text',
-            description: 'Your full name',
-            placeholder: 'Your full name',
+            description: 'Sample text field',
+            placeholder: 'Your name',
             validate: (value) => {
                 if (!value) return "Required"
             }
@@ -19,7 +19,7 @@ function App() {
             name: 'age',
             label: 'Age',
             component: 'number',
-            description: 'Your age',
+            description: 'Sample number field',
             placeholder: 'Your age',
             validate: (value) => {
                 if (!value) return "Required"
@@ -29,20 +29,22 @@ function App() {
             name: 'enabled',
             label: 'Enabled',
             component: 'boolean',
+            description: 'Sample boolean field',
             defaultValue: true,
-            description: 'Enable',
         },
         {
-            name: 'gender', label: 'Gender', component: 'choice',
+            name: 'gender',
+            label: 'Gender',
+            component: 'choice',
             choices: ['Male', 'Female', 'Another'],
-            description: 'Your gender',
+            description: 'Sample choice field',
             defaultValue: 'Female'
         },
         {
             name: 'tags',
             label: 'Tags',
-            description: 'Employee tags',
-            placeholder: 'Employee tags',
+            description: 'Sample tags field',
+            placeholder: 'your-tags',
             component: 'tags',
             validate: (value) => {
                 if (!value) return "Required"
@@ -53,24 +55,104 @@ function App() {
             name: 'description',
             label: 'Description',
             component: 'longtext',
-            description: 'This is a description',
+            description: 'Sample longtext field',
             validate: (value) => {
                 if (!value) return "Required"
             }
         },
         {
-            name: 'profile',
-            label: 'Profile',
+            name: 'simple_object_field',
+            label: 'Simple object field',
             component: 'object',
-            description: 'This is very long long long long long long long long long long long long long long long long long long long long description',
+            description: 'Sample simple object field',
             fields: [
                 {name: 'first_name', label: 'First Name', component: 'text'},
                 {name: 'last_name', label: 'Last Name', component: 'text'},
             ],
             validate: (value) => {
+                console.log('validate simple object', value)
                 if (!value) return "Required"
             }
         },
+        {
+            name: 'complex_object_field',
+            label: 'Complex object field',
+            component: 'object',
+            description: 'Sample complex object field',
+            fields: [
+                {name: 'first_name', label: 'First Name', component: 'text'},
+                {
+                    name: 'profile', label: 'Profile', component: 'object',
+                    fields: [
+                        {name: 'first_name', label: 'First Name', component: 'text'},
+                        {name: 'last_name', label: 'Last Name', component: 'text'},
+                    ]
+                },
+                {
+                    name: 'array',
+                    label: 'Array',
+                    component: 'array',
+                    child: {
+                        component: 'text',
+                    },
+                    defaultItem: 'array element'
+                },
+            ],
+            validate: (value) => {
+                if (!value) return "Required"
+                if (value === {}) return "Required"
+            }
+        },
+        {
+            name: 'simple_array_field',
+            label: 'Simple Array Field',
+            description: "Sample simple array field",
+            component: 'array',
+            child: {
+                component: 'text',
+            },
+            defaultItem: 'array element'
+        },
+        {
+            name: 'complex_array_field_1',
+            label: 'Array Contain Object',
+            description: "Sample Array contain object",
+            component: 'array',
+            child: {
+                name: 'simple_object_field',
+                label: 'Simple object field',
+                component: 'object',
+                description: 'Sample simple object field',
+                fields: [
+                    {name: 'first_name', label: 'First Name', component: 'text'},
+                    {name: 'last_name', label: 'Last Name', component: 'text'},
+                ],
+                validate: (value) => {
+                    if (!value) return "Required"
+                }
+            },
+            defaultItem: {
+                first_name: 'Daniel',
+                last_name: 'Doan',
+            }
+        },
+        {
+            name: 'complex_array_field_2',
+            label: 'Array Contain Array',
+            description: "Sample Array contain array",
+            component: 'array',
+            child: {
+                name: 'simple_array_field',
+                label: 'Simple Array Field',
+                description: "Sample simple array field",
+                component: 'array',
+                child: {
+                    component: 'text',
+                },
+                defaultItem: 'array element'
+            },
+            defaultItem: []
+        }
     ]
     const initValues = {}
     const form = createForm({

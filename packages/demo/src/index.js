@@ -10,6 +10,7 @@ import {
     TagsFieldComponent,
     TextFieldComponent,
     ObjectFieldComponent,
+    ArrayFieldComponent,
 } from "@form-composer/ant-fields";
 
 const formComposer = new FormComposer({
@@ -22,6 +23,7 @@ const formComposer = new FormComposer({
         ChoiceFieldComponent,
 
         ObjectFieldComponent,
+        ArrayFieldComponent,
     ]
 })
 
