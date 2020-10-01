@@ -7,7 +7,7 @@ export default {
         dir: "dist",
         sourcemap: true,
     },
-    external: ['react', "final-form", "final-form", "final-form-arrays", "react-final-form"],
+    external: ['react', "final-form", "final-form", "final-form-arrays", "react-final-form", "final-form-set-field-touched"],
     plugins: [
         tsPlugin()
     ]
