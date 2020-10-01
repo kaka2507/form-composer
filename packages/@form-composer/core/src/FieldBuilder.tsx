@@ -8,6 +8,7 @@ export interface FieldBuilderProps {
     formComposer: FormComposer,
     form: Form,
     field: Field
+    [key: string]: any
 }
 
 export const FieldBuilder = ({formComposer, form, field, ...fieldBuilderProps}: FieldBuilderProps) => {
