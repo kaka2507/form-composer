@@ -4,7 +4,7 @@ import {Field, Form} from "@form-composer/core";
 import {Form as AntForm} from "antd";
 
 export interface BaseFieldProps extends FieldRenderProps<any, HTMLElement> {
-    field: Field & {nested?: boolean, noHelp?: boolean}
+    field: Field & {noLabel?: boolean, noHelp?: boolean}
     form: Form
     itemLayout: object
     help?: string | React.ReactNode
@@ -18,33 +18,15 @@ const getError = (error: string | object) => {
 
 export const BaseField = ({field, meta, help, itemLayout, children}: BaseFieldProps) => {
     const hasError = meta.touched && meta.error;
-    const description = field.noHelp? undefined : help? help: (field.description? field.description : (field.nested? field.label : ''))
+    const finalHelp = help? help: (field.description? field.description : undefined)
     return (
-        <>
-            {hasError && !field.nested && (
-                <AntForm.Item key={field.name} {...itemLayout} label={field.label} help={getError(meta.error)}
-                              validateStatus="error">
-                    {children}
-                </AntForm.Item>
-            )}
-            {hasError && field.nested && (
-                <AntForm.Item key={field.name} {...itemLayout} help={getError(meta.error)}
-                              validateStatus="error">
-                    {children}
-                </AntForm.Item>
-            )}
-            {!hasError && !field.nested && (
-                <AntForm.Item key={field.name} {...itemLayout} label={field.label} help={description}
-                              validateStatus="validating">
-                    {children}
-                </AntForm.Item>
-            )}
-            {!hasError && field.nested && (
-                <AntForm.Item key={field.name} {...itemLayout} help={description}
-                              validateStatus="validating">
-                    {children}
-                </AntForm.Item>
-            )}
-        </>
+        <AntForm.Item
+            key={field.name}
+            label={field.noLabel? undefined : field.label}
+            help={field.noHelp? undefined : hasError? getError(meta.error): finalHelp}
+            validateStatus={hasError? "error": "validating"}
+            {...itemLayout}>
+            {children}
+        </AntForm.Item>
     )
 }

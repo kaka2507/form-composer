@@ -10,8 +10,8 @@ const Panel = Collapse.Panel
 interface ObjectFieldProps extends BaseFieldProps {
     field: Field & {
         fields: Field[],
-        nested?: boolean,
-        noHelp?: boolean
+        noLabel?: boolean
+        childOfObject?: boolean
     }
     form: Form
 }
@@ -21,7 +21,8 @@ const ObjectField = ({form, field, ...rest}: ObjectFieldProps) => {
         return field.fields.map((subField: any) => ({
             ...subField,
             name: `${field.name}.${subField.name}`,
-            nested: true,
+            noHelp: true,
+            childOfObject: true
         }))
     }, [field.fields, field.name])
 
@@ -42,28 +43,20 @@ const ObjectField = ({form, field, ...rest}: ObjectFieldProps) => {
         },
     };
 
-    let header;
-    if (!field.nested || field.noHelp) {
-        header = (
-            <div style={{width: '100%', display: 'flex', justifyContent: 'flex-end'}}>
-                <Tooltip placement="top" title="Click to expand">
-                    <InfoCircleOutlined />
-                </Tooltip>
-            </div>
-        )
-    } else {
-        header = field.label
+    const header = (
+        <div style={{width: '100%', display: 'flex', justifyContent: 'flex-end'}}>
+            <Tooltip placement="top" title="Click to expand">
+                <InfoCircleOutlined />
+            </Tooltip>
+        </div>
+    )
+    if (field.childOfObject) {
+        field.noLabel = true;
     }
-
-    // Force: object field will be no help (description or error) if it's nested
-    if (field.nested) {
-        field.noHelp = true
-    }
-
     return (
         <BaseField form={form} field={field} {...rest}>
             <Collapse accordion onChange={onChange}>
-                <Panel key={field.name} header={header}>
+                <Panel key={field.name} header={field.childOfObject? field.label : header}>
                     <FieldsBuilder form={form} fields={fields} itemLayout={childLayout} />
                 </Panel>
             </Collapse>

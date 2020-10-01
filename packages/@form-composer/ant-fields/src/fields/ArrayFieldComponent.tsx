@@ -13,6 +13,8 @@ interface ArrayFieldProps extends BaseFieldProps {
     field: Field & {
         child: Field
         defaultItem: DefaultItem,
+        noLabel?: boolean,
+        childOfObject?: boolean
     }
     form: Form
 }
@@ -40,7 +42,7 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
             ...field.child,
             name: `${field.name}.${index}`,
             label: `${field.label} ${index}`,
-            nested: true,
+            noLabel: true,
             noHelp: true
         }))
     }, [field.child, field.name, items.length])
@@ -52,6 +54,11 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
             </Tooltip>
         </div>
     )
+
+    if (field.childOfObject) {
+        field.noLabel = true;
+    }
+
     const childLayout = {
         labelCol: {
             span: 24
@@ -63,7 +70,7 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
     return (
         <BaseField form={form} field={field} input={input} {...rest}>
             <Collapse>
-                <Panel key={field.name} header={header}>
+                <Panel key={field.name} header={field.childOfObject? field.label : header}>
                     {fields.map((field, index) => (
                         <Row key={field.name} align="top">
                             <Col span="2">
