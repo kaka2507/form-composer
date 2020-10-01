@@ -70,7 +70,6 @@ function App() {
                 {name: 'last_name', label: 'Last Name', component: 'text'},
             ],
             validate: (value) => {
-                console.log('validate simple object', value)
                 if (!value) return "Required"
             }
         },
@@ -111,7 +110,12 @@ function App() {
             child: {
                 component: 'text',
             },
-            defaultItem: 'array element'
+            defaultItem: 'array element',
+            validate: (value) => {
+                if (!value) return ["Required at least 1 element"];
+                if (value.length === 0) return ["Required at least 1 element"];
+                return undefined;
+            }
         },
         {
             name: 'complex_array_field_1',
@@ -128,12 +132,19 @@ function App() {
                     {name: 'last_name', label: 'Last Name', component: 'text'},
                 ],
                 validate: (value) => {
-                    if (!value) return "Required"
+                    if (!value) return ["Required at least 1 element"];
+                    if (value.length === 0) return ["Required at least 1 element"];
+                    return undefined;
                 }
             },
             defaultItem: {
                 first_name: 'Daniel',
                 last_name: 'Doan',
+            },
+            validate: (value) => {
+                if (!value) return ["Required at least 1 element"];
+                if (value.length === 0) return ["Required at least 1 element"];
+                return undefined;
             }
         },
         {
@@ -151,7 +162,12 @@ function App() {
                 },
                 defaultItem: 'array element'
             },
-            defaultItem: []
+            defaultItem: [],
+            validate: (value) => {
+                if (!value) return ["Required at least 1 element"];
+                if (value.length === 0) return ["Required at least 1 element"];
+                return undefined;
+            }
         }
     ]
     const initValues = {}
