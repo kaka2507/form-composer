@@ -8,7 +8,7 @@ import {InfoCircleOutlined} from '@ant-design/icons'
 const Panel = Collapse.Panel
 
 interface ObjectFieldProps extends BaseFieldProps {
-    field: Field & { fields: Field[] }
+    field: Field & { fields: Field[], nested?: boolean }
     form: Form
 }
 
@@ -17,26 +17,44 @@ const ObjectField = ({form, field, ...rest}: ObjectFieldProps) => {
         return field.fields.map((subField: any) => ({
             ...subField,
             name: `${field.name}.${subField.name}`,
+            nested: true,
         }))
     }, [field.fields, field.name])
+
+    // Mark object field as touched when user click to expand
     const onChange = React.useCallback(() => {
         const state = form.finalForm.getFieldState(field.name)
         if (!state.touched) {
             form.mutators.setFieldTouched(field.name, true)
         }
     }, [form, field])
-    const header = (
-        <div style={{width: '100%', display: 'flex', justifyContent: 'flex-end'}}>
-            <Tooltip placement="top" title="Click to expand">
-                <InfoCircleOutlined />
-            </Tooltip>
-        </div>
-    )
+
+    const childLayout = {
+        labelCol: {
+            span: 24
+        },
+        wrapperCol: {
+            span: 24
+        },
+    };
+
+    let header;
+    if (!field.nested) {
+        header = (
+            <div style={{width: '100%', display: 'flex', justifyContent: 'flex-end'}}>
+                <Tooltip placement="top" title="Click to expand">
+                    <InfoCircleOutlined />
+                </Tooltip>
+            </div>
+        )
+    } else {
+        header = field.label
+    }
     return (
-        <BaseField form={form} field={field} {...rest}>
+        <BaseField form={form} field={field} {...rest} noLabel={field.nested}>
             <Collapse accordion onChange={onChange}>
                 <Panel key={field.name} header={header}>
-                    <FieldsBuilder form={form} fields={fields} itemLayout={rest.itemLayout} />
+                    <FieldsBuilder form={form} fields={fields} itemLayout={childLayout} />
                 </Panel>
             </Collapse>
         </BaseField>
