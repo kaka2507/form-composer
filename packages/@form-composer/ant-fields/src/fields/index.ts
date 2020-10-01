@@ -1,4 +1,5 @@
 export * from './format'
+export * from './BaseField'
 export * from './TextFieldComponent'
 export * from './LongTextFieldComponent'
 export * from './NumberFieldComponent'
