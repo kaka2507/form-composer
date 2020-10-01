@@ -81,7 +81,7 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
                         </Row>
                     ))}
                     <Row justify="center">
-                        <Button icon={<PlusCircleOutlined/>} size="large" type="text" onClick={() => addItem()} />
+                        <Button icon={<PlusCircleOutlined/>} type="text" onClick={() => addItem()} />
                     </Row>
                 </Panel>
             </Collapse>
