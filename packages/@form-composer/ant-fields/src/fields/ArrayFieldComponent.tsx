@@ -35,8 +35,15 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
         form.mutators.remove(field.name, index)
     }, [form, field])
 
-    const items = input.value || []
+    // Mark object field as touched when user click to expand
+    const onChange = React.useCallback(() => {
+        const state = form.finalForm.getFieldState(field.name)
+        if (!state.touched) {
+            form.mutators.setFieldTouched(field.name, true)
+        }
+    }, [form, field])
 
+    const items = input.value || []
     const fields: any[] = React.useMemo(() => {
         return items.map((item, index) => ({
             ...field.child,
@@ -69,14 +76,14 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
     };
     return (
         <BaseField form={form} field={field} input={input} {...rest}>
-            <Collapse>
+            <Collapse onChange={onChange}>
                 <Panel key={field.name} header={field.childOfObject? field.label : header}>
                     {fields.map((field, index) => (
                         <Row key={field.name} align="top">
-                            <Col span="2">
+                            <Col flex="30px">
                                 <Button icon={<MinusCircleOutlined/>} size="large" type="text" onClick={() => removeItem(index)} />
                             </Col>
-                            <Col span="22">
+                            <Col flex="auto">
                                 <FieldBuilder formComposer={formComposer} form={form} field={field} itemLayout={childLayout}/>
                             </Col>
                         </Row>

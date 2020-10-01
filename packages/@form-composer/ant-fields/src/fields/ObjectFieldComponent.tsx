@@ -55,7 +55,7 @@ const ObjectField = ({form, field, ...rest}: ObjectFieldProps) => {
     }
     return (
         <BaseField form={form} field={field} {...rest}>
-            <Collapse accordion onChange={onChange}>
+            <Collapse onChange={onChange}>
                 <Panel key={field.name} header={field.childOfObject? field.label : header}>
                     <FieldsBuilder form={form} fields={fields} itemLayout={childLayout} />
                 </Panel>
