@@ -3,15 +3,20 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import {FormComposer, FormComposerProvider} from "@form-composer/core";
 import {
+    ArrayFieldComponent,
     BooleanFieldComponent,
     ChoiceFieldComponent,
+    ImageFieldComponent,
+    ImagePlugin,
+    ImagesFieldComponent,
     LongTextFieldComponent,
     NumberFieldComponent,
+    ObjectFieldComponent,
     TagsFieldComponent,
     TextFieldComponent,
-    ObjectFieldComponent,
-    ArrayFieldComponent,
 } from "@form-composer/ant-fields";
+
+const imagePlugin = new ImagePlugin();
 
 const formComposer = new FormComposer({
     fieldTypes: [
@@ -21,9 +26,14 @@ const formComposer = new FormComposer({
         BooleanFieldComponent,
         TagsFieldComponent,
         ChoiceFieldComponent,
+        ImageFieldComponent,
+        ImagesFieldComponent,
 
         ObjectFieldComponent,
         ArrayFieldComponent,
+    ],
+    plugins: [
+        imagePlugin,
     ]
 })
 

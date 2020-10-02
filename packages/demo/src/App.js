@@ -25,6 +25,8 @@ function App() {
                 if (!value) return "Required"
             }
         },
+        {name: 'avatar', label: 'Avatar', component: 'image'},
+        {name: 'avatars', label: 'Avatar', component: 'images'},
         {
             name: 'enabled',
             label: 'Enabled',
