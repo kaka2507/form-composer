@@ -3,12 +3,10 @@ import {useFormComposer} from "@form-composer/core";
 import {parseText} from "./format";
 import {BaseField, BaseFieldProps} from "./BaseField";
 import {IImagePlugin} from "../plugins";
-import {Result, Row, Spin, Upload} from "antd";
-import {CloudUploadOutlined, LoadingOutlined} from '@ant-design/icons';
+import {Modal, Upload} from "antd";
+import {CloudUploadOutlined} from '@ant-design/icons';
 
 const Dragger = Upload.Dragger;
-
-const loadingIcon = <LoadingOutlined style={{fontSize: 24}} spin/>;
 
 export const ImageField = ({field, input, ...rest}: BaseFieldProps) => {
     const formComposer = useFormComposer()
@@ -17,79 +15,65 @@ export const ImageField = ({field, input, ...rest}: BaseFieldProps) => {
         console.error('Missing ImagePlugin in FormComposer')
         return null;
     }
-    const [src, setSrc] = useState(input.value ? input.value : '')
-    const [file, setFile] = useState(undefined)
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('')
+    const [currentFile, setCurrentFile] = useState(undefined)
+    const [previewVisible, setPreviewVisible] = useState(false);
 
-    const onRemove = () => {
-        updateImage('')
-    }
-
-    const updateImage = (src: string) => {
-        setSrc(src);
-        input.onChange(src)
-    }
-
-    const customRequest = ({onSuccess, onError, file}) => {
-        setError('')
-        setLoading(true);
+    const customRequest = ({onSuccess, onError, file, ...rest}) => {
+        if (file.response) {
+            onSuccess(file)
+            return
+        }
         imagePlugin.persist(file)
-            .then(persistedSrc => {
-                setLoading(false);
-                onSuccess(persistedSrc, file)
+            .then(response => {
+                onSuccess(response, file)
             })
             .catch(error => {
                 onError(error);
-                setLoading(false);
             })
     }
 
     const onChange = ({file}) => {
+        if (file.status === 'removed') {
+            setCurrentFile(undefined)
+            input.onChange('')
+        } else {
+            setCurrentFile(file)
+        }
         if (file.status === 'done') {
-            updateImage(file.response)
-        } else if (file.status === 'error') {
-            updateImage('')
-            setError(file.error)
+            input.onChange(file.response.url)
         }
     }
+
+    const handlePreview = async file => {
+        setPreviewVisible(true)
+    };
 
     return (
         <BaseField field={field} input={input} {...rest}>
             <Dragger
                 accept='image/*'
                 multiple={false}
-                showUploadList={false}
-                listType="picture-card"
-                onRemove={onRemove}
+                listType="picture"
+                className="upload-list-inline"
                 customRequest={customRequest}
                 onChange={onChange}
+                onPreview={handlePreview}
+                fileList={currentFile? [currentFile]: undefined}
             >
-                {loading && (
-                    <Row justify="center">
-                        <Spin indicator={loadingIcon}/>
-                    </Row>
-                )}
-                {!loading && !src && !error && (
-                    <>
-                        <p className="ant-upload-drag-icon">
-                            <CloudUploadOutlined/>
-                        </p>
-                        <p className="ant-upload-hint">Click or drag file to this area to upload</p>
-                    </>
-                )}
-                {!loading && !src && error && (
-                    <Result
-                        status="error"
-                        title={error}
-                        subTitle='Click to try again'/>
-                )}
-                {!loading && src && (
-                    <Row justify="center">
-                        <img src={src} alt={field.name} style={{maxHeight: '80px'}}/>
-                    </Row>
-                )}
+                <p className="ant-upload-drag-icon">
+                    <CloudUploadOutlined/>
+                </p>
+                <p className="ant-upload-hint">Click or drag file to this area to upload</p>
             </Dragger>
+            {currentFile && currentFile.response && (
+                <Modal
+                    visible={previewVisible}
+                    footer={null}
+                    onCancel={() => setPreviewVisible(false)}
+                >
+                    <img alt="preview" style={{ width: '100%' }} src={currentFile.response.url} />
+                </Modal>
+            )}
         </BaseField>
     )
 }

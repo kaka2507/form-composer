@@ -180,7 +180,7 @@ function App() {
         },
         fields: fields,
     }, (values) => {
-        console.log('onChange values:', values)
+        console.log('onFormChange values:', values)
     })
     return (
         <div style={{margin: 'auto', padding: '20px', boxSizing: 'border-box'}}>

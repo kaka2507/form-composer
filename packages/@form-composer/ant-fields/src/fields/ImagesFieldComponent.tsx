@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {useFormComposer} from "@form-composer/core";
 import {parseText} from "./format";
 import {BaseField, BaseFieldProps} from "./BaseField";
 import {IImagePlugin} from "../plugins";
-import {Upload} from "antd";
+import {Modal, Upload} from "antd";
 import {CloudUploadOutlined} from '@ant-design/icons';
 
 const Dragger = Upload.Dragger;
@@ -15,6 +15,8 @@ export const ImagesField = ({form, field, input, ...rest}: BaseFieldProps) => {
         console.error('Missing ImagePlugin in FormComposer')
         return null;
     }
+    const [previewVisible, setPreviewVisible] = useState(false);
+    const [previewSrc, setPreviewSrc] = useState(undefined);
 
     const addImage = React.useCallback(
         (src: string) => {
@@ -29,25 +31,36 @@ export const ImagesField = ({form, field, input, ...rest}: BaseFieldProps) => {
         [form, field.name]
     )
     const onRemove = React.useCallback((file) => {
-        const idx = form.finalForm.getFieldState(field.name)?.value?.indexOf(file.response)
+        const idx = form.finalForm.getFieldState(field.name)?.value?.indexOf(file.response.url)
         if (idx !== -1) form.mutators.remove(field.name, idx)
     }, [form, field])
 
     const customRequest = ({onSuccess, onError, file}) => {
+        if (file.response) {
+            onSuccess(file)
+            return
+        }
         imagePlugin.persist(file)
-            .then(persistedSrc => {
-                onSuccess(persistedSrc, file)
+            .then(response => {
+                onSuccess(response, file)
             })
             .catch(error => {
                 onError(error);
             })
     }
 
-    const onChange = ({file}) => {
+    const onChange = ({file, fileList}) => {
         if (file.status === 'done') {
-            addImage(file.response)
+            addImage(file.response.url)
         }
     }
+
+    const handlePreview = async file => {
+        if (file.response) {
+            setPreviewVisible(true)
+            setPreviewSrc(file.response.url)
+        }
+    };
 
     return (
         <BaseField form={form} field={field} input={input} {...rest}>
@@ -58,13 +71,20 @@ export const ImagesField = ({form, field, input, ...rest}: BaseFieldProps) => {
                 onRemove={onRemove}
                 customRequest={customRequest}
                 onChange={onChange}
-                showUploadList={{showPreviewIcon: false}}
+                onPreview={handlePreview}
             >
                 <p className="ant-upload-drag-icon">
                     <CloudUploadOutlined/>
                 </p>
                 <p className="ant-upload-hint">Click or drag file to this area to upload</p>
             </Dragger>
+            <Modal
+                visible={previewVisible}
+                footer={null}
+                onCancel={() => setPreviewVisible(false)}
+            >
+                <img alt="preview" style={{ width: '100%' }} src={previewSrc} />
+            </Modal>
         </BaseField>
     )
 }
