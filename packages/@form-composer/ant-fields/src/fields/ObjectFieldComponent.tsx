@@ -7,7 +7,7 @@ import {InfoCircleOutlined} from '@ant-design/icons'
 
 const Panel = Collapse.Panel
 
-interface ObjectFieldProps extends BaseFieldProps {
+export interface ObjectFieldProps extends BaseFieldProps {
     field: Field & {
         fields: Field[],
         noLabel?: boolean
@@ -26,6 +26,16 @@ const ObjectField = ({form, field, ...rest}: ObjectFieldProps) => {
         }))
     }, [field.fields, field.name])
 
+    return (
+        <ObjectFieldRenderer form={form} field={field} fields={fields} {...rest} />
+    )
+}
+
+export interface ObjectFieldRendererProps extends ObjectFieldProps {
+    fields: Field[]
+}
+
+export const ObjectFieldRenderer = ({form, field, fields, ...rest}: ObjectFieldRendererProps) => {
     // Mark object field as touched when user click to expand
     const onChange = React.useCallback(() => {
         const state = form.finalForm.getFieldState(field.name)
