@@ -1,5 +1,5 @@
 import React from "react";
-import {Collapse, Row, Tooltip} from 'antd';
+import {Button, Collapse, Row, Tooltip} from 'antd';
 import {parseText} from "./format";
 import {Field, FieldBuilder, FieldComponent, Form, useFormComposer} from "@form-composer/core";
 import {BaseField, BaseFieldProps} from "./BaseField";
@@ -80,10 +80,12 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
                     {fields.map((field, index) => (
                         <Row key={field.name} align="middle">
                             <div style={{position: 'relative', width: '100%'}}>
-                                <div style={{position: 'absolute', top: '-3px', right: '-12px', zIndex: 100}}>
-                                    <Tooltip placement="top" title="Remove this item">
-                                        <CloseCircleFilled style={{color: red[5], fontSize: '20px'}} onClick={() => removeItem(index)}/>
-                                    </Tooltip>
+                                <div style={{position: 'absolute', top: '-12px', right: '-20px', zIndex: 100}}>
+                                    <Button
+                                        type="text" size="large"
+                                        onClick={() => removeItem(index)}
+                                        icon={<CloseCircleFilled style={{color: red[5], fontSize: '20px'}}/>}
+                                    />
                                 </div>
                                 <FieldBuilder formComposer={formComposer} form={form} field={field}/>
                             </div>
@@ -91,7 +93,12 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
                     ))}
                     <Row justify="center">
                         <Tooltip placement="top" title="Add new element">
-                            <PlusCircleOutlined style={{color: blue[5], fontSize: '20px'}} onClick={() => addItem()}/>
+                            <Button
+                                type="text"
+                                size="large"
+                                onClick={() => addItem()}
+                                icon={<PlusCircleOutlined style={{color: blue[5], fontSize: '20px'}} />}
+                            />
                         </Tooltip>
                     </Row>
                 </Panel>
