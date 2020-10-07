@@ -1,9 +1,10 @@
 import React from "react";
-import {Button, Col, Collapse, Row, Tooltip} from 'antd';
+import {Collapse, Row, Tooltip} from 'antd';
 import {parseText} from "./format";
 import {Field, FieldBuilder, FieldComponent, Form, useFormComposer} from "@form-composer/core";
 import {BaseField, BaseFieldProps} from "./BaseField";
-import {InfoCircleOutlined, MinusCircleOutlined, PlusCircleOutlined} from '@ant-design/icons'
+import {CloseCircleFilled, InfoCircleOutlined, PlusCircleOutlined} from '@ant-design/icons'
+import {blue, red} from "@ant-design/colors";
 
 const Panel = Collapse.Panel
 
@@ -66,22 +67,32 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
         field.noLabel = true;
     }
 
+
+
     return (
         <BaseField form={form} field={field} input={input} {...rest}>
             <Collapse onChange={onChange}>
-                <Panel key={field.name} header={field.childOfObject? field.label : header}>
+                <Panel
+                    key={field.name}
+                    header={field.childOfObject? field.label : header}
+                    style={{padding: '0px'}}
+                >
                     {fields.map((field, index) => (
-                        <Row key={field.name} align="top">
-                            <Col flex="30px">
-                                <Button icon={<MinusCircleOutlined/>} size="large" type="text" onClick={() => removeItem(index)} />
-                            </Col>
-                            <Col flex="auto">
+                        <Row key={field.name} align="middle">
+                            <div style={{position: 'relative', width: '100%'}}>
+                                <div style={{position: 'absolute', top: '-3px', right: '-12px', zIndex: 100}}>
+                                    <Tooltip placement="top" title="Remove this item">
+                                        <CloseCircleFilled style={{color: red[5], fontSize: '20px'}} onClick={() => removeItem(index)}/>
+                                    </Tooltip>
+                                </div>
                                 <FieldBuilder formComposer={formComposer} form={form} field={field}/>
-                            </Col>
+                            </div>
                         </Row>
                     ))}
                     <Row justify="center">
-                        <Button icon={<PlusCircleOutlined/>} type="text" onClick={() => addItem()} />
+                        <Tooltip placement="top" title="Add new element">
+                            <PlusCircleOutlined style={{color: blue[5], fontSize: '20px'}} onClick={() => addItem()}/>
+                        </Tooltip>
                     </Row>
                 </Panel>
             </Collapse>
