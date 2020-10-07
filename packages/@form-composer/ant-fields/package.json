@@ -1,6 +1,6 @@
 {
   "name": "@form-composer/ant-fields",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Form's Composer fields which is built by Ant Design",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -23,6 +23,7 @@
     "typescript": "^4.0.2"
   },
   "dependencies": {
+    "@ant-design/colors": "^4.0.5",
     "@ant-design/icons": "^4.2.2",
     "@form-composer/core": "0.0.1",
     "antd": "^4.6.6",
