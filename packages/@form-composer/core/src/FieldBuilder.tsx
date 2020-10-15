@@ -3,6 +3,7 @@ import {Field, FieldComponent} from './field'
 import {Form} from "./form";
 import {FormComposer} from "./FormComposer";
 import {Field as FinalField} from "react-final-form";
+import {RenderCount} from "./RenderCount";
 
 export interface FieldBuilderProps {
     formComposer: FormComposer,
@@ -31,6 +32,15 @@ export const FieldBuilder = ({formComposer, form, field, ...fieldBuilderProps}: 
     if (!parse && fieldType && fieldType.defaultValue) {
         defaultValue = fieldType.defaultValue
     }
+
+    const subscription = !field.level?
+        fieldType.composite?
+            {error: true, touched: true} :
+            {value: true, error: true, touched: true} :
+        {active: true}
+    console.log('field:', field)
+    console.log('subscription', subscription)
+
     return (
         <FinalField
             key={field.name}
@@ -52,21 +62,20 @@ export const FieldBuilder = ({formComposer, form, field, ...fieldBuilderProps}: 
                     return validate(value, values, meta, field)
                 }
             }}
-            supscription={{
-                value: true,
-                error: true,
-                touched: true
-            }}
+            supscription={subscription}
         >
             {fieldRenderProps => {
                 if (fieldType) {
                     return (
-                        <fieldType.Component
-                            form={form}
-                            field={field}
-                            {...fieldBuilderProps}
-                            {...fieldRenderProps}
-                        />
+                        <div style={{position: 'relative'}}>
+                            <RenderCount />
+                            <fieldType.Component
+                                form={form}
+                                field={field}
+                                {...fieldBuilderProps}
+                                {...fieldRenderProps}
+                            />
+                        </div>
                     )
                 }
 

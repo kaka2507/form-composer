@@ -1,5 +1,5 @@
 import React, {FC} from 'react'
-import {FieldsBuilder, Form} from '@form-composer/core'
+import {FieldsBuilder, Form, RenderCount} from '@form-composer/core'
 import {Form as FinalForm} from 'react-final-form'
 import {Form as AntForm, Grid} from 'antd';
 import "antd/dist/antd.css";
@@ -24,9 +24,10 @@ export const FormBuilder: FC<FormBuilderProps> = ({form}) => {
         },
     };
     return (
-        <FF form={form.finalForm}>
+        <FF form={form.finalForm} subscription={{ submitting: true, pristine: true }} >
             {() => (
                 <AntForm size="large" layout={screens.xs ? "vertical" : "horizontal"}>
+                    <RenderCount />
                     <FieldsBuilder form={form} fields={form.fields} itemLayout={itemLayout}/>
                 </AntForm>
             )}

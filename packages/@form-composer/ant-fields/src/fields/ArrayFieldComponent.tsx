@@ -51,7 +51,8 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
             name: `${field.name}.${index}`,
             label: `${field.label} ${index}`,
             noLabel: true,
-            noHelp: true
+            noHelp: true,
+            level: field.level? field.level + 1 : 1
         }))
     }, [field.child, field.name, items.length])
 
@@ -66,8 +67,6 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
     if (field.childOfObject) {
         field.noLabel = true;
     }
-
-
 
     return (
         <BaseField form={form} field={field} input={input} {...rest}>
@@ -110,5 +109,6 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
 export const ArrayFieldComponent: FieldComponent = {
     name: 'array',
     Component: ArrayField,
-    parse: parseText
+    parse: parseText,
+    composite: true,
 }

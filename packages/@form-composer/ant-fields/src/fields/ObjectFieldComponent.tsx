@@ -22,7 +22,8 @@ const ObjectField = ({form, field, ...rest}: ObjectFieldProps) => {
             ...subField,
             name: `${field.name}.${subField.name}`,
             noHelp: true,
-            childOfObject: true
+            childOfObject: true,
+            level: field.level? field.level + 1 : 1
         }))
     }, [field.fields, field.name])
 
@@ -77,5 +78,6 @@ export const ObjectFieldRenderer = ({form, field, fields, ...rest}: ObjectFieldR
 export const ObjectFieldComponent: FieldComponent = {
     name: 'object',
     Component: ObjectField,
-    parse: parseText
+    parse: parseText,
+    composite: true,
 }

@@ -11,6 +11,7 @@ export interface Field<F extends Field = AnyField> {
     parse?: (value: any, name: string, field: F) => any
     format?: (value: any, name: string, field: F) => any
     defaultValue?: any
+    level?: number
 
     validate?(
         value: any,
@@ -27,6 +28,7 @@ export interface FieldComponent {
     parse?: (value: any, name: string, field: Field) => any
     format?: (value: any, name: string, field: Field) => any
     defaultValue?: any
+    composite?: boolean
 
     validate?(
         value: any,
