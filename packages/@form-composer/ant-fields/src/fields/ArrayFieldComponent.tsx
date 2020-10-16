@@ -6,7 +6,7 @@ import {BaseField, BaseFieldProps} from "./BaseField";
 import {CloseCircleFilled, InfoCircleOutlined, PlusCircleOutlined} from '@ant-design/icons'
 import {blue, red} from "@ant-design/colors";
 
-const Panel = Collapse.Panel
+const { Panel } = Collapse
 
 type DefaultItem = any | (() => any)
 
@@ -14,8 +14,6 @@ interface ArrayFieldProps extends BaseFieldProps {
     field: Field & {
         child: Field
         defaultItem: DefaultItem,
-        noLabel?: boolean,
-        childOfObject?: boolean
     }
     form: Form
 }
@@ -50,8 +48,7 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
             ...field.child,
             name: `${field.name}.${index}`,
             label: `${field.label} ${index}`,
-            noLabel: true,
-            noHelp: true
+            noHeader: true,
         }))
     }, [field.child, field.name, items.length])
 
@@ -63,18 +60,15 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
         </div>
     )
 
-    if (field.childOfObject) {
-        field.noLabel = true;
-    }
-
-
-
     return (
         <BaseField form={form} field={field} input={input} {...rest}>
-            <Collapse onChange={onChange}>
+            <Collapse
+                onChange={onChange}
+                style={{width: '100%'}}
+            >
                 <Panel
                     key={field.name}
-                    header={field.childOfObject? field.label : header}
+                    header={header}
                     style={{padding: '0px'}}
                 >
                     {fields.map((field, index) => (

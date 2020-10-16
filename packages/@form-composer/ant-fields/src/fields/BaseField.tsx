@@ -1,36 +1,68 @@
 import React from "react";
 import {FieldRenderProps} from "react-final-form";
 import {Field, Form} from "@form-composer/core";
-import {Form as AntForm} from "antd";
+import {Collapse, Row, Tooltip, Typography} from 'antd';
+import {InfoCircleOutlined} from '@ant-design/icons'
+
+const {Panel} = Collapse
+const {Text} = Typography
 
 export interface BaseFieldProps extends FieldRenderProps<any, HTMLElement> {
-    field: Field & {noLabel?: boolean, noHelp?: boolean}
+    field: Field & {
+        noHeader?: boolean
+        shrink?: boolean
+    }
     form: Form
-    itemLayout: object
-    help?: string | React.ReactNode
 }
 
-const getError = (error: string | object) => {
+export const getError = (error: string | object) => {
     if (!error) return error
     if (typeof error === 'string') return error;
     return Object.values(error).join('')
 }
 
-export const BaseField = ({field, meta, help, itemLayout, children}: BaseFieldProps) => {
+export const BaseField = ({field, meta, children}: BaseFieldProps) => {
     const hasError = meta.touched && meta.error;
-    const finalHelp = help? help: (field.description? field.description : undefined)
-    let styles = {}
-    if (field.noHelp) styles['marginBottom'] = '8px'
-    if (field.noLabel) styles['marginTop'] = '8px'
+    const activeKey = field.shrink ? undefined : field.name
+    if (field.noHeader) {
+        return (
+            <Row style={{margin: '10px 0px', width: '100%'}}>
+                {children}
+            </Row>
+        )
+    }
     return (
-        <AntForm.Item
-            key={field.name}
-            label={field.noLabel? undefined : field.label}
-            help={field.noHelp? undefined : hasError? getError(meta.error): finalHelp}
-            style={styles}
-            validateStatus={hasError? "error": "validating"}
-            {...itemLayout}>
-            {children}
-        </AntForm.Item>
+        <Collapse
+            ghost
+            expandIconPosition="right"
+            defaultActiveKey={activeKey}
+        >
+            <Panel
+                key={field.name}
+                header={(
+                    <Row align="middle">
+                        {
+                            field.description && (
+                                <Tooltip title={field.description}>
+                                    <InfoCircleOutlined style={{marginRight: '10px'}}/>
+                                </Tooltip>
+                            )
+                        }
+                        {
+                            !hasError && (
+                                <Text strong>{field.label}</Text>
+                            )
+                        }
+                        {
+                            hasError && (
+                                <Text strong type="danger">{`${field.label} (${getError(meta.error)})`}</Text>
+                            )
+                        }
+                    </Row>
+                )}
+            >
+                {children}
+            </Panel>
+        </Collapse>
     )
 }
