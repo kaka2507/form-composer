@@ -1,7 +1,7 @@
 import React from "react";
 import {FieldRenderProps} from "react-final-form";
 import {Field, Form} from "@form-composer/core";
-import {Collapse, Row, Tooltip, Typography} from 'antd';
+import {Col, Collapse, Row, Tooltip, Typography} from 'antd';
 import {InfoCircleOutlined} from '@ant-design/icons'
 
 const {Panel} = Collapse
@@ -41,21 +41,25 @@ export const BaseField = ({field, meta, children}: BaseFieldProps) => {
                 key={field.name}
                 header={(
                     <Row align="middle">
+                        <Col flex="auto">
+                            {
+                                !hasError && (
+                                    <Text strong>{field.label}</Text>
+                                )
+                            }
+                            {
+                                hasError && (
+                                    <Text strong type="danger">{`${field.label} (${getError(meta.error)})`}</Text>
+                                )
+                            }
+                        </Col>
                         {
                             field.description && (
-                                <Tooltip title={field.description}>
-                                    <InfoCircleOutlined style={{marginRight: '10px'}}/>
-                                </Tooltip>
-                            )
-                        }
-                        {
-                            !hasError && (
-                                <Text strong>{field.label}</Text>
-                            )
-                        }
-                        {
-                            hasError && (
-                                <Text strong type="danger">{`${field.label} (${getError(meta.error)})`}</Text>
+                                <Col>
+                                    <Tooltip title={field.description}>
+                                        <InfoCircleOutlined style={{marginLeft: '10px', float: 'right'}}/>
+                                    </Tooltip>
+                                </Col>
                             )
                         }
                     </Row>
