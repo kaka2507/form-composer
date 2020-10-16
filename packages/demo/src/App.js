@@ -11,6 +11,7 @@ function App() {
             component: 'text',
             description: 'Sample text field',
             placeholder: 'Your name',
+            shrink: true,
             validate: (value) => {
                 if (!value) return "Required"
             }
@@ -58,6 +59,8 @@ function App() {
             label: 'Description',
             component: 'longtext',
             description: 'Sample longtext field',
+            placeholder: 'Enter your text',
+            row: 2,
             validate: (value) => {
                 if (!value) return "Required"
             }

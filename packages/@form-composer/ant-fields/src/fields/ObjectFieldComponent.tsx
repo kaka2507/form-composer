@@ -10,8 +10,6 @@ const Panel = Collapse.Panel
 export interface ObjectFieldProps extends BaseFieldProps {
     field: Field & {
         fields: Field[],
-        noLabel?: boolean
-        childOfObject?: boolean
     }
     form: Form
 }
@@ -45,15 +43,6 @@ export const ObjectFieldRenderer = ({form, field, fields, ...rest}: ObjectFieldR
         }
     }, [form, field])
 
-    const childLayout = {
-        labelCol: {
-            span: 24
-        },
-        wrapperCol: {
-            span: 24
-        },
-    };
-
     const header = (
         <div style={{width: '100%', display: 'flex', justifyContent: 'flex-end'}}>
             <Tooltip placement="top" title="Click to expand">
@@ -61,14 +50,15 @@ export const ObjectFieldRenderer = ({form, field, fields, ...rest}: ObjectFieldR
             </Tooltip>
         </div>
     )
-    if (field.childOfObject) {
-        field.noLabel = true;
-    }
+
     return (
         <BaseField form={form} field={field} {...rest}>
-            <Collapse onChange={onChange}>
-                <Panel key={field.name} header={field.childOfObject? field.label : header}>
-                    <FieldsBuilder form={form} fields={fields} itemLayout={childLayout} />
+            <Collapse
+                onChange={onChange}
+                style={{width: '100%'}}
+            >
+                <Panel key={field.name} header={header}>
+                    <FieldsBuilder form={form} fields={fields} />
                 </Panel>
             </Collapse>
         </BaseField>
