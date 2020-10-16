@@ -1,7 +1,6 @@
 import React, {FC} from 'react'
 import {FieldsBuilder, Form} from '@form-composer/core'
 import {Form as FinalForm} from 'react-final-form'
-import {Form as AntForm, Grid} from 'antd';
 import "antd/dist/antd.css";
 
 export interface FormBuilderProps {
@@ -9,26 +8,12 @@ export interface FormBuilderProps {
 }
 
 const FF: any = FinalForm
-const {useBreakpoint} = Grid
 
 export const FormBuilder: FC<FormBuilderProps> = ({form}) => {
-    const screens = useBreakpoint();
-    const itemLayout = {
-        labelCol: {
-            xs: {span: 24},
-            sm: {span: 5},
-        },
-        wrapperCol: {
-            xs: {span: 24},
-            sm: {span: 17},
-        },
-    };
     return (
         <FF form={form.finalForm}>
             {() => (
-                <AntForm size="large" layout={screens.xs ? "vertical" : "horizontal"}>
-                    <FieldsBuilder form={form} fields={form.fields} itemLayout={itemLayout}/>
-                </AntForm>
+                <FieldsBuilder form={form} fields={form.fields}/>
             )}
         </FF>
     )
