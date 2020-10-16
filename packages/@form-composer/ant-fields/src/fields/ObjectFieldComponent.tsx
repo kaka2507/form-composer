@@ -10,6 +10,7 @@ const Panel = Collapse.Panel
 export interface ObjectFieldProps extends BaseFieldProps {
     field: Field & {
         fields: Field[],
+        shrink?: boolean
     }
     form: Form
 }
@@ -35,7 +36,7 @@ export interface ObjectFieldRendererProps extends ObjectFieldProps {
 
 export const ObjectFieldRenderer = ({form, field, fields, ...rest}: ObjectFieldRendererProps) => {
     // Mark object field as touched when user click to expand
-    const onChange = React.useCallback(() => {
+    const onExpand = React.useCallback(() => {
         const state = form.finalForm.getFieldState(field.name)
         if (!state.touched) {
             form.mutators.setFieldTouched(field.name, true)
@@ -50,12 +51,16 @@ export const ObjectFieldRenderer = ({form, field, fields, ...rest}: ObjectFieldR
         </div>
     )
 
+    // Object field is shrink by default
+    if (field.shrink === undefined) {
+        field.shrink = true;
+    }
+
     return (
-        <BaseField form={form} field={field} {...rest}>
+        <BaseField form={form} field={field} onExpand={onExpand} {...rest}>
             <Collapse
-                onChange={onChange}
-                style={{width: '100%'}}
-            >
+                defaultActiveKey={field.name}
+                style={{width: '100%'}}>
                 <Panel key={field.name} header={header}>
                     <FieldsBuilder form={form} fields={fields} />
                 </Panel>

@@ -13,6 +13,7 @@ export interface BaseFieldProps extends FieldRenderProps<any, HTMLElement> {
         shrink?: boolean
     }
     form: Form
+    onExpand?: Function
 }
 
 export const getError = (error: string | object) => {
@@ -21,7 +22,7 @@ export const getError = (error: string | object) => {
     return Object.values(error).join('')
 }
 
-export const BaseField = ({field, meta, children}: BaseFieldProps) => {
+export const BaseField = ({field, meta, onExpand, children}: BaseFieldProps) => {
     const hasError = meta.touched && meta.error;
     const activeKey = field.shrink ? undefined : field.name
     if (field.noHeader) {
@@ -36,6 +37,7 @@ export const BaseField = ({field, meta, children}: BaseFieldProps) => {
             ghost
             expandIconPosition="right"
             defaultActiveKey={activeKey}
+            onChange={onExpand? () => onExpand() : undefined}
         >
             <Panel
                 key={field.name}

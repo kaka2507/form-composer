@@ -14,6 +14,7 @@ interface ArrayFieldProps extends BaseFieldProps {
     field: Field & {
         child: Field
         defaultItem: DefaultItem,
+        shrink?: boolean,
     }
     form: Form
 }
@@ -35,7 +36,7 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
     }, [form, field])
 
     // Mark object field as touched when user click to expand
-    const onChange = React.useCallback(() => {
+    const onExpand = React.useCallback(() => {
         const state = form.finalForm.getFieldState(field.name)
         if (!state.touched) {
             form.mutators.setFieldTouched(field.name, true)
@@ -59,13 +60,15 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
             </Tooltip>
         </div>
     )
-
+    // Array field is shrink by default
+    if (field.shrink === undefined) {
+        field.shrink = true;
+    }
     return (
-        <BaseField form={form} field={field} input={input} {...rest}>
+        <BaseField form={form} field={field} input={input} onExpand={onExpand} {...rest}>
             <Collapse
-                onChange={onChange}
-                style={{width: '100%'}}
-            >
+                defaultActiveKey={field.name}
+                style={{width: '100%'}}>
                 <Panel
                     key={field.name}
                     header={header}
