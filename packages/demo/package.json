@@ -8,8 +8,8 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
-    "@form-composer/core": "0.0.1",
-    "@form-composer/ant-fields": "0.0.4"
+    "@form-composer/core": "0.0.2",
+    "@form-composer/ant-fields": "0.0.10"
   },
   "scripts": {
     "start": "react-scripts start",
