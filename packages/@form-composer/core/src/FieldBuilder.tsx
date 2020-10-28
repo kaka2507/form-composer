@@ -34,12 +34,11 @@ export const FieldBuilder = ({formComposer, form, field, ...fieldBuilderProps}: 
     }
 
     const subscription = !field.level?
-        fieldType.composite?
+        (fieldType.composite?
             {error: true, touched: true} :
-            {value: true, error: true, touched: true} :
-        {active: true}
-    console.log('field:', field)
-    console.log('subscription', subscription)
+            {value: true, error: true, touched: true} ):
+        (fieldType.composite? {}: {value: true})
+    console.log('field:', field, 'subscription:', subscription)
 
     return (
         <FinalField
