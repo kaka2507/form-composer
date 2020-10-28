@@ -13,7 +13,7 @@ const FF: any = FinalForm
 export const FormBuilder: FC<FormBuilderProps> = ({form, fields}) => {
     const renderFields = fields? fields : form.fields
     return (
-        <FF form={form.finalForm} subscription={{ submitting: true, pristine: true }} >
+        <FF form={form.finalForm} subscription={{ }} >
             {() => (
                 <div>
                     <RenderCount />
