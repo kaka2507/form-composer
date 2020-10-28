@@ -145,9 +145,8 @@ function App() {
                 last_name: 'Doan',
             },
             validate: (value) => {
-                if (!value) return ["Required at least 1 element"];
-                if (value.length === 0) return ["Required at least 1 element"];
-                return undefined;
+                if (!value) return "Required at least 1 element";
+                if (value.length === 0) return "Required at least 1 element";
             }
         },
         {
