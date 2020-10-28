@@ -117,9 +117,8 @@ function App() {
             },
             defaultItem: 'array element',
             validate: (value) => {
-                if (!value) return ["Required at least 1 element"];
-                if (value.length === 0) return ["Required at least 1 element"];
-                return undefined;
+                if (!value) return "Required at least 1 element";
+                if (value.length === 0) return "Required at least 1 element";
             }
         },
         {
@@ -137,9 +136,8 @@ function App() {
                     {name: 'last_name', label: 'Last Name', component: 'text'},
                 ],
                 validate: (value) => {
-                    if (!value) return ["Required at least 1 element"];
-                    if (value.length === 0) return ["Required at least 1 element"];
-                    return undefined;
+                    if (!value) return "Required at least 1 element";
+                    if (value.length === 0) return "Required at least 1 element";
                 }
             },
             defaultItem: {
@@ -169,9 +167,8 @@ function App() {
             },
             defaultItem: [],
             validate: (value) => {
-                if (!value) return ["Required at least 1 element"];
-                if (value.length === 0) return ["Required at least 1 element"];
-                return undefined;
+                if (!value) return "Required at least 1 element";
+                if (value.length === 0) return "Required at least 1 element";
             }
         }
     ]
