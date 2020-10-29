@@ -98,11 +98,13 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
                                 {items.length > 1 && (
                                     <div style={{position: 'absolute', height: '100%', right: '-20px', zIndex: 100}}>
                                         <Row align="middle" style={{height: '100%'}}>
-                                            <Button
-                                                type="text" size="large"
-                                                onClick={() => moveDown(index)}
-                                                icon={index != 0 && index === items.length - 1 ? <RetweetOutlined /> : <DownCircleOutlined />}
-                                            />
+                                            <Tooltip title={index != 0 && index === items.length - 1? "Move to first position" : "Move down"}>
+                                                <Button
+                                                    type="text" size="large"
+                                                    onClick={() => moveDown(index)}
+                                                    icon={index != 0 && index === items.length - 1 ? <RetweetOutlined /> : <DownCircleOutlined />}
+                                                />
+                                            </Tooltip>
                                         </Row>
                                     </div>
                                 )}
