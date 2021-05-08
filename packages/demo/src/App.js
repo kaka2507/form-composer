@@ -117,8 +117,9 @@ function App() {
             },
             defaultItem: 'array element',
             validate: (value) => {
-                if (!value) return "Required at least 1 element";
-                if (value.length === 0) return "Required at least 1 element";
+                if (!value) return ["Required at least 1 element"];
+                if (value.length === 0) return ["Required at least 1 element"];
+                return undefined;
             }
         },
         {
@@ -136,8 +137,9 @@ function App() {
                     {name: 'last_name', label: 'Last Name', component: 'text'},
                 ],
                 validate: (value) => {
-                    if (!value) return "Required at least 1 element";
-                    if (value.length === 0) return "Required at least 1 element";
+                    if (!value) return ["Required at least 1 element"];
+                    if (value.length === 0) return ["Required at least 1 element"];
+                    return undefined;
                 }
             },
             defaultItem: {
@@ -145,8 +147,9 @@ function App() {
                 last_name: 'Doan',
             },
             validate: (value) => {
-                if (!value) return "Required at least 1 element";
-                if (value.length === 0) return "Required at least 1 element";
+                if (!value) return ["Required at least 1 element"];
+                if (value.length === 0) return ["Required at least 1 element"];
+                return undefined;
             }
         },
         {
@@ -166,8 +169,9 @@ function App() {
             },
             defaultItem: [],
             validate: (value) => {
-                if (!value) return "Required at least 1 element";
-                if (value.length === 0) return "Required at least 1 element";
+                if (!value) return ["Required at least 1 element"];
+                if (value.length === 0) return ["Required at least 1 element"];
+                return undefined;
             }
         }
     ]
