@@ -9,7 +9,7 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.3",
     "@form-composer/core": "0.0.2",
-    "@form-composer/ant-fields": "0.0.11"
+    "@form-composer/ant-fields": "0.0.12"
   },
   "homepage": "/form-composer",
   "scripts": {
