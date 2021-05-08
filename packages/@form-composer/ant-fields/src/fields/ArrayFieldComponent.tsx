@@ -68,6 +68,7 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
             name: `${field.name}.${index}`,
             label: `${field.label} ${index}`,
             noHeader: true,
+            level: field.level? field.level + 1 : 1
         }))
     }, [field.child, field.name, items.length])
     const [swapForm] = AntForm.useForm();
@@ -204,5 +205,6 @@ const ArrayField = ({form, field, input, ...rest}: ArrayFieldProps) => {
 export const ArrayFieldComponent: FieldComponent = {
     name: 'array',
     Component: ArrayField,
-    parse: parseText
+    parse: parseText,
+    composite: true,
 }

@@ -1,5 +1,5 @@
 import React, {FC} from 'react'
-import {FieldsBuilder, Form, Field} from '@form-composer/core'
+import {FieldsBuilder, Form, Field, RenderCount} from '@form-composer/core'
 import {Form as FinalForm} from 'react-final-form'
 import "antd/dist/antd.css";
 
@@ -13,7 +13,7 @@ const FF: any = FinalForm
 export const FormBuilder: FC<FormBuilderProps> = ({form, fields}) => {
     const renderFields = fields? fields : form.fields
     return (
-        <FF form={form.finalForm}>
+        <FF form={form.finalForm} subscription={{ }} >
             {() => (
                 <FieldsBuilder form={form} fields={renderFields}/>
             )}
