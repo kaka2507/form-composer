@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.js": "/form-composer/static/js/main.15702813.chunk.js",
+    "main.js.map": "/form-composer/static/js/main.15702813.chunk.js.map",
+    "runtime-main.js": "/form-composer/static/js/runtime-main.ddc75ad6.js",
+    "runtime-main.js.map": "/form-composer/static/js/runtime-main.ddc75ad6.js.map",
+    "static/css/2.220ccb42.chunk.css": "/form-composer/static/css/2.220ccb42.chunk.css",
+    "static/js/2.0e838dac.chunk.js": "/form-composer/static/js/2.0e838dac.chunk.js",
+    "static/js/2.0e838dac.chunk.js.map": "/form-composer/static/js/2.0e838dac.chunk.js.map",
+    "index.html": "/form-composer/index.html",
+    "precache-manifest.9f8f033b87a5bc50fe4e65c75eb4b943.js": "/form-composer/precache-manifest.9f8f033b87a5bc50fe4e65c75eb4b943.js",
+    "service-worker.js": "/form-composer/service-worker.js",
+    "static/css/2.220ccb42.chunk.css.map": "/form-composer/static/css/2.220ccb42.chunk.css.map",
+    "static/js/2.0e838dac.chunk.js.LICENSE.txt": "/form-composer/static/js/2.0e838dac.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ddc75ad6.js",
+    "static/css/2.220ccb42.chunk.css",
+    "static/js/2.0e838dac.chunk.js",
+    "static/js/main.15702813.chunk.js"
+  ]
+}

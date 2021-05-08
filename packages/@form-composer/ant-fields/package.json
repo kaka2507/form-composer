@@ -1,6 +1,6 @@
 {
   "name": "@form-composer/ant-fields",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "description": "Form's Composer fields which is built by Ant Design",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
